@@ -25,7 +25,7 @@ vxlanport=4789
 vni=100
 
 # Create a VXLAN header
-vxlan=prepacket/IP(src=vtepsrc,dst=vtepdst, options=IPOption('\x83\x03\x10'))/UDP(sport=1234,dport=vxlanport)/VXLAN(vni=vni,flags="Instance")
+vxlan=prepacket/IP(src=vtepsrc,dst=vtepdst)/UDP(sport=1234,dport=vxlanport)/VXLAN(vni=vni,flags="Instance")
 
 # Make VXLAN innner packet
 broadcast="ff:ff:ff:ff:ff:ff"
@@ -34,7 +34,15 @@ source="198.51.100.124"
 dstmac="00:50:56:12:34:56"
 destination="198.51.100.200"
 
-realpacket=IP(src=source,dst=destination, options=IPOption('\x83\x03\x10'))/UDP()/DNS(rd=1,id=0xdead,qd=DNSQR(qname="www.bornhack.dk"))
+#realpacket=IP(src=source,dst=destination)/UDP()/DNS(rd=1,id=0xdead,qd=DNSQR(qname="www.bornhack.dk"))
+
+# This part from https://www.packetlevel.ch/html/scapy/scapyipv6.html
+a=IPv6(nh=58, src='fe80::214:f2ff:fe07:af0', dst='ff02::1', version=6L, hlim=255, plen=64, fl=0L, tc=224L)
+b=ICMPv6ND_RA(code=0, chlim=64, H=0L, M=0L, O=0L, routerlifetime=1800, P=0L, retranstimer=0, prf=0L, res=0L, reachabletime=0, type=134)
+c=ICMPv6NDOptSrcLLAddr(type=1, len=1, lladdr='00:14:f2:07:0a:f1')
+d=ICMPv6NDOptMTU(res=0, type=5, len=1, mtu=1500)
+e=ICMPv6NDOptPrefixInfo(A=1L, res2=0, res1=0L, L=1L, len=4, prefix='2001:db99:dead::', R=0L, validlifetime=2592000, prefixlen=64, preferredlifetime=604800, type=3)
+realpacket=a/b/c/d
 
 packet=vxlan/Ether(dst=dstmac,src=srcmac)/realpacket
 #packet2=vxlan/Ether(dst=dstmac,src=srcmac)/packet
