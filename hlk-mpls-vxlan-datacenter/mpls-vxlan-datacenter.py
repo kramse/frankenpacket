@@ -16,7 +16,7 @@ load_contrib("mpls")
 mpls_eth = Ether(src="00:16:3e:11:11:11", dst="ca:01:07:fc:00:1c", type=0x8847)
 mpls_lables=MPLS(label=16, s=0, ttl=255)/MPLS(label=18, s=0, ttl=255)/MPLS(label=18, s=0, ttl=255)/MPLS(label=16, s=1, ttl=255)
 
-# Add GRE
+# VLAN
 prepacket=mpls_eth/mpls_lables/Ether(dst="00:00:00:00:00:03")/Dot1Q(vlan=42)
 
 vtepsrc="192.0.2.1"
