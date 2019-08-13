@@ -25,7 +25,7 @@ vxlanport=4789
 vni=100
 
 # Create a VXLAN header
-vxlan=prepacket/IP(src=vtepsrc,dst=vtepdst, options=IPOption('\x44\x10\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'+'\x83\x03\x10'))/UDP(sport=1234,dport=vxlanport)/VXLAN(vni=vni,flags="Instance")
+vxlan=prepacket/IP(src=vtepsrc,dst=vtepdst, options=IPOption('\x44\x10\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'+'\x88\x04\x10\x10'+'\x83\x03\x10'))/UDP(sport=1234,dport=vxlanport)/VXLAN(vni=vni,flags="Instance")
 
 # Make VXLAN innner packet
 broadcast="ff:ff:ff:ff:ff:ff"
