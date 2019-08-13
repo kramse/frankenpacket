@@ -50,5 +50,5 @@ print "Length of headers packet: " + str(headers)
 print "Length of innermost packet: " + str(len(realpacket))
 print "Overhead ratio: " + str(100 * len(packet) / float ( len(realpacket)) )
 
-wrpcap("packet.cap",packet)
+wrpcap("mpls-vxlan-datacenter.cap",packet)
 wireshark (packet)
