@@ -34,7 +34,7 @@ source="198.51.100.124"
 dstmac="00:50:56:12:34:56"
 destination="198.51.100.200"
 
-realpacket=IP(src=source,dst=destination, options=IPOption('\x83\x03\x10'))/UDP()/DNS(rd=1,id=0xdead,qd=DNSQR(qname="www.bornhack.dk"))
+realpacket=IP(src=source,dst=destination, options=IPOption('\x44\x10\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x83\x03\x10'))/UDP()/DNS(rd=1,id=0xdead,qd=DNSQR(qname="www.bornhack.dk"))
 
 packet=vxlan/Ether(dst=dstmac,src=srcmac)/realpacket
 #packet2=vxlan/Ether(dst=dstmac,src=srcmac)/packet
