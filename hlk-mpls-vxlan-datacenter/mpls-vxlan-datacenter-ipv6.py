@@ -63,10 +63,10 @@ packet.show()
 headers=len(packet)-len(realpacket)
 
 # Stats
-print "Length of packet with all encapsulation: " + str(len(packet))
-print "Length of headers packet: " + str(headers)
-print "Length of innermost packet: " + str(len(realpacket))
-print "Overhead ratio: " + str(100 * len(packet) / float ( len(realpacket)) )
+print ("Length of packet with all encapsulation: " + str(len(packet)))
+print ("Length of headers packet: " + str(headers))
+print ("Length of innermost packet: " + str(len(realpacket)))
+print ("Overhead ratio: " + str(100 * len(packet) / float ( len(realpacket)) ))
 
 wrpcap("mpls-vxlan-datacenter-ipv6.cap",packet)
 wireshark (packet)
